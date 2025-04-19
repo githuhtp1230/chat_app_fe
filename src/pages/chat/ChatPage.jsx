@@ -19,8 +19,6 @@ const ChatPage = () => {
 
   const selectedChat = chats?.find((chat) => chat.id == conversationId) || null;
 
-  console.log("hello2");
-
   return (
     <div className="flex flex-1">
       <ChatList chats={chats} />

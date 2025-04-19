@@ -16,11 +16,13 @@ import { getMyInfo } from "./redux/reducers/profile_reducer";
 import ChatDetail from "./pages/chat/ChatDetail";
 import { ThreeDot } from "react-loading-indicators";
 import NotFoundPage from "./pages/NotFoundPage";
-import ModalLink from "./components/modals/ModelLink";
+import Modal from "./components/modals/Modal";
 
 const App = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const state = location.state;
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -51,8 +53,7 @@ const App = () => {
     <>
       <div className="flex bg-main h-screen">
         <Navbar />
-
-        <Routes>
+        <Routes location={state?.backgroundLocation || location}>
           <Route path={PATH.REGISTER} element={<RegisterPage />} />
           <Route path={PATH.LOGIN} element={<LoginPage />} />
           <Route path={PATH.SETTING} element={<SettingPage />} />
@@ -63,9 +64,13 @@ const App = () => {
               element={<ChatPage />}
             />
           </Route>
-
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
+        {state?.backgroundLocation && (
+          <Routes>
+            <Route path={PATH.MODALS.PROFILE} element={<Modal />}></Route>
+          </Routes>
+        )}
       </div>
 
       <ToastContainer

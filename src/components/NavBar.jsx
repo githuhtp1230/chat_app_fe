@@ -12,11 +12,17 @@ const {
 } = icons;
 
 const Navbar = () => {
+  const location = useLocation();
   const currentProfile = useSelector((state) => state.profile.data);
 
   return (
     <div className="bg-[#252E3D] flex flex-col items-center p-2">
-      {currentProfile ? <UserAvatar currentProfile={currentProfile} /> : null}
+      {/* {currentProfile ? <UserAvatar currentProfile={currentProfile} /> : null} */}
+      {currentProfile ? (
+        <Link to={PATH.MODALS.PROFILE} state={{ backgroundLocation: location }}>
+          <div>Test</div>
+        </Link>
+      ) : null}
       <NavLink to={PATH.CHAT}>
         {({ isActive }) => (
           <div

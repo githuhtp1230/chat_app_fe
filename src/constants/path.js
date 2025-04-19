@@ -4,8 +4,7 @@ const PATH = {
   CHAT: "/chat",
   SETTING: "/setting",
   CONTACTS: "/contacts",
-
-  modals: {
+  MODALS: {
     PROFILE: "/profile",
   },
 };
