@@ -2,7 +2,7 @@ import React from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import PATH from "../constants/path";
 import icons from "../utils/icons";
-import UserAvatar from "./UserAvatar";
+import UserAvatar from "./profile/UserAvatar";
 import { useSelector } from "react-redux";
 
 const {
@@ -17,10 +17,9 @@ const Navbar = () => {
 
   return (
     <div className="bg-[#252E3D] flex flex-col items-center p-2">
-      {/* {currentProfile ? <UserAvatar currentProfile={currentProfile} /> : null} */}
       {currentProfile ? (
         <Link to={PATH.MODALS.PROFILE} state={{ backgroundLocation: location }}>
-          <div>Test</div>
+          <UserAvatar currentProfile={currentProfile} />
         </Link>
       ) : null}
       <NavLink to={PATH.CHAT}>

@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import PATH from "../../constants/path";
 import CONSTS from "../../constants/consts";
 
-const Chat = ({ chat, onClick }) => {
+const Chat = ({ chat }) => {
   return (
     <NavLink to={`${PATH.CHAT}/${chat.id}`}>
       <div className="flex items-center py-1.5 px-2 min-w-[280px] justify-between hover:bg-[#252E3D] cursor-pointer rounded-[8px]">

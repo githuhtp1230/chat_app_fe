@@ -1,24 +1,45 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import icons from "../../utils/icons";
+const { IoCloseSharp } = icons;
 
-const Modal = () => {
+const Modal = ({ children, title }) => {
   const navigate = useNavigate();
 
   const handleClose = () => {
     navigate(-1);
   };
 
+  const handleOverlayClick = () => {
+    handleClose();
+  };
+
+  const stopPropagation = (e) => {
+    e.stopPropagation();
+  };
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-50">
-      <div className="bg-white p-6 rounded shadow-lg w-[300px]">
-        <h2 className="text-lg font-semibold mb-4">User Profile</h2>
-        <p>This is the profile modal content.</p>
-        <button
-          onClick={handleClose}
-          className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
-        >
-          Close
-        </button>
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-[#0d111683] bg-opacity-50"
+      onClick={handleOverlayClick}
+    >
+      <div
+        className="bg-[#18212B] p-6 rounded-2xl shadow-lg w-[500px]"
+        onClick={stopPropagation}
+      >
+        <div className="flex justify-between">
+          <h2 className="text-[22px] text-[#EBEBEB] font-semibold">
+            {title || "None Title"}
+          </h2>
+          <button type="button">
+            <IoCloseSharp
+              size={30}
+              className="cursor-pointer text-[#878787] hover:text-white"
+              onClick={handleClose}
+            />
+          </button>
+        </div>
+        <div className="mt-4">{children}</div>
       </div>
     </div>
   );

@@ -17,6 +17,7 @@ import ChatDetail from "./pages/chat/ChatDetail";
 import { ThreeDot } from "react-loading-indicators";
 import NotFoundPage from "./pages/NotFoundPage";
 import Modal from "./components/modals/Modal";
+import CurrentProfile from "./components/profile/CurrentProfile";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -64,11 +65,21 @@ const App = () => {
               element={<ChatPage />}
             />
           </Route>
-          <Route path="*" element={<NotFoundPage />} />
         </Routes>
         {state?.backgroundLocation && (
           <Routes>
-            <Route path={PATH.MODALS.PROFILE} element={<Modal />}></Route>
+            <Route element={<PrivateRoute />}>
+              <Route
+                path={PATH.MODALS.PROFILE}
+                element={
+                  <Modal
+                    title={"Current Profile"}
+                    children={<CurrentProfile />}
+                  />
+                }
+              ></Route>
+            </Route>
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         )}
       </div>

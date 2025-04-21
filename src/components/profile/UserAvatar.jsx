@@ -1,5 +1,5 @@
 import React from "react";
-import CONSTS from "../constants/consts";
+import CONSTS from "../../constants/consts";
 
 const UserAvatar = ({ currentProfile }) => {
   return (

@@ -6,3 +6,10 @@ export const fetchMessagesOfChat = async (chatId) => {
   );
   return [error, result];
 };
+
+export const sendMessage = async (chatId, message) => {
+  const [error, result] = await handlerRequest(
+    httpRequest.post(`conversations/${chatId}/messages`, { content: message })
+  );
+  return [error, result];
+};

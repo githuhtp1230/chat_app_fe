@@ -2,14 +2,16 @@ import React, { useEffect, useState } from "react";
 import ChatPartnerInfo from "../../components/chat/ChatPartnerInfo";
 import MessageList from "../../components/message/MessageList";
 import SendMessageInput from "../../components/message/SendMessageInput";
-import { fetchMessagesOfChat } from "../../services/message_service";
+import {
+  fetchMessagesOfChat,
+  sendMessage,
+} from "../../services/message_service";
 import socketUtil from "../../utils/socket_util";
 
 const ChatDetail = ({ chat }) => {
   const [messages, setMessages] = useState(null);
 
   const onReceivedMessage = (message) => {
-    console.log(message);
     setMessages((prevMessages) => [...prevMessages, message]);
   };
 
