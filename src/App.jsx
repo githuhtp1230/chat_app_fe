@@ -13,11 +13,13 @@ import { cookieUtils } from "./utils/cookie_util";
 import SECURITY from "./constants/security";
 import { useDispatch } from "react-redux";
 import { getMyInfo } from "./redux/reducers/profile_reducer";
-import ChatDetail from "./pages/chat/ChatDetail";
+import ChatDetail from "./components/chat/ChatDetail";
 import { ThreeDot } from "react-loading-indicators";
 import NotFoundPage from "./pages/NotFoundPage";
 import Modal from "./components/modals/Modal";
 import CurrentProfile from "./components/profile/CurrentProfile";
+import socketUtil from "./utils/socket_util";
+import ContactPage from "./pages/contact/ContactPage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -63,6 +65,13 @@ const App = () => {
             <Route
               path={`${PATH.CHAT}/:conversationId`}
               element={<ChatPage />}
+            />
+          </Route>
+          <Route element={<PrivateRoute />}>
+            <Route path={PATH.CONTACTS} element={<ContactPage />} />
+            <Route
+              path={`${PATH.CONTACTS}/:userId`}
+              element={<ContactPage />}
             />
           </Route>
         </Routes>

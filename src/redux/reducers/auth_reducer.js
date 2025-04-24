@@ -3,7 +3,11 @@ import {
   createSlice,
   isRejectedWithValue,
 } from "@reduxjs/toolkit";
-import { loginService, registerService } from "../../services/auth_service";
+import {
+  loginService,
+  logoutService,
+  registerService,
+} from "../../services/auth_service";
 import Cookies from "js-cookie";
 import { cookieUtils } from "../../utils/cookie_util";
 import SECURITY from "../../constants/security";
@@ -30,14 +34,29 @@ export const login = createAsyncThunk(
   }
 );
 
+export const logout = createAsyncThunk(
+  "auth/logout",
+  async (request, { rejectWithValue }) => {
+    const [error, result] = await logoutService();
+    if (error) {
+      return rejectWithValue(error?.response?.data);
+    }
+    return result;
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {},
   extraReducers: (builder) => {
-    builder.addCase(login.fulfilled, (state, action) => {
-      const token = action.payload.data.accessToken;
-      cookieUtils.saveToken(token, SECURITY.KEY_ACCESS_TOKEN);
-    });
+    builder
+      .addCase(login.fulfilled, (state, action) => {
+        const token = action.payload.data.accessToken;
+        cookieUtils.saveToken(token, SECURITY.KEY_ACCESS_TOKEN);
+      })
+      .addCase(logout.fulfilled, (state, action) => {
+        cookieUtils.removeStorage(SECURITY.KEY_ACCESS_TOKEN);
+      });
   },
 });
 

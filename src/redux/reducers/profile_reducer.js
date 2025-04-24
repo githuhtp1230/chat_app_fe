@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { fetchProfileService } from "../../services/profile_service";
-import { login } from "./auth_reducer";
+import { login, logout } from "./auth_reducer";
 
 export const getMyInfo = createAsyncThunk(
   "/me/profile",
@@ -21,11 +21,13 @@ const profileReducer = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(login.fulfilled, (state, action) => {
-        console.log("eee");
         state.data = { ...action.payload.data.user };
       })
       .addCase(getMyInfo.fulfilled, (state, action) => {
         state.data = { ...action.payload.data };
+      })
+      .addCase(logout.fulfilled, (state, action) => {
+        state.data = null;
       });
   },
 });

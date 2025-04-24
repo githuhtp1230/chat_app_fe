@@ -13,3 +13,8 @@ export const loginService = async (data) => {
   );
   return [error, result];
 };
+
+export const logoutService = async () => {
+  const [error, result] = await handlerRequest(httpRequest.post("auth/logout"));
+  return [error, result];
+};

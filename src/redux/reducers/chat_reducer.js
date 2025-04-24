@@ -17,6 +17,14 @@ const chatReducer = createSlice({
   initialState: {
     data: null,
   },
+  reducers: {
+    updateChat: (state, action) => {
+      const filtered = state.data.filter(
+        (chat) => chat.id !== action.payload.id
+      );
+      state.data = [action.payload, ...filtered];
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getChats.fulfilled, (state, action) => {
       state.data = [...action.payload.data];
@@ -24,4 +32,5 @@ const chatReducer = createSlice({
   },
 });
 
+export const { updateChat } = chatReducer.actions;
 export default chatReducer.reducer;

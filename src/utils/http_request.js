@@ -21,7 +21,6 @@ httpRequest.interceptors.request.use((config) => {
 export const handlerRequest = (promise) => {
   return promise
     .then((data) => {
-      console.log(data);
       return [undefined, data.data];
     })
     .catch((err) => [err, undefined]);

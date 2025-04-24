@@ -16,4 +16,7 @@ export const cookieUtils = {
   getStorage: (key) => {
     return Cookies.get(key);
   },
+  removeStorage: (key) => {
+    Cookies.remove(key);
+  },
 };

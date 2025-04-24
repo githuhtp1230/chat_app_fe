@@ -28,26 +28,25 @@ class SocketUtil {
     );
   }
 
-  subscribe(conversationId, onMessageReceived) {
+  subscribe(prefix, id, callback) {
     if (!this.stompClient || !this.stompClient.connected) {
       console.error("Web socket is not connected");
       return;
     }
-    if (this.subscriptions.has(conversationId)) {
-      console.log(`Already subscribed to conversation ${conversationId}`);
+    if (this.subscriptions.has(id)) {
+      console.log(`Already subscribed to ${id}`);
       return;
     }
     const subscription = this.stompClient.subscribe(
-      `/topic/conversations/${conversationId}`,
+      `/topic/${prefix}/${id}`,
       (message) => {
-        onMessageReceived(JSON.parse(message.body));
+        callback(JSON.parse(message.body));
       }
     );
-    this.subscriptions.set(conversationId, subscription);
-    console.log(`subscribe ${conversationId} successfully`);
+    this.subscriptions.set(`${prefix}:${id}`, subscription);
   }
 
-  sendMessage(conversationId, senderId, content) {
+  sendMessage(conversationId, senderId, content, isSending = false) {
     if (!this.stompClient || !this.stompClient.connected) {
       console.error("Web socket is not connected");
       return;
@@ -59,17 +58,33 @@ class SocketUtil {
         conversationId,
         senderId,
         content,
+        isSending,
       })
     );
   }
 
-  unsubscribe(conversationId) {
+  sendingMessage(conversationId, senderId) {
     if (!this.stompClient || !this.stompClient.connected) {
       console.error("Web socket is not connected");
       return;
     }
-    this.subscriptions.get(conversationId).unsubscribe();
-    this.subscriptions.delete(conversationId);
+    this.stompClient.send(
+      "/app/sending-message",
+      {},
+      JSON.stringify({
+        conversationId,
+        senderId,
+      })
+    );
+  }
+
+  unsubscribe(prefix, id) {
+    if (!this.stompClient || !this.stompClient.connected) {
+      console.error("Web socket is not connected");
+      return;
+    }
+    this.subscriptions.get(`${prefix}:${id}`).unsubscribe();
+    this.subscriptions.delete(id);
   }
 }
 
