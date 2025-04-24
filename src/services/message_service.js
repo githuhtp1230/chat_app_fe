@@ -1,7 +1,7 @@
 import httpRequest, { handlerRequest } from "../utils/http_request";
 
 export const fetchMessagesOfChat = async (chatId) => {
-  const [error, result] = await handlerRequest(
+  let [error, result] = await handlerRequest(
     httpRequest.get(`me/conversations/${chatId}/messages`)
   );
   if (result) {
