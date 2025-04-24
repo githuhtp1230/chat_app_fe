@@ -9,8 +9,6 @@ export const cookieUtils = {
     const expireDate = new Date(expTimestamp * 1000);
     Cookies.set(key, token, {
       expires: expireDate,
-      secure: true,
-      sameSite: "Strict",
     });
   },
   getStorage: (key) => {
