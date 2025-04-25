@@ -1,12 +1,11 @@
 import React from "react";
-import CONSTS from "../../constants/consts";
-
+import { UI_CONSTS } from "../../constants/ui_consts";
 const ChatPartnerInfo = ({ chatPartner }) => {
   return (
     <div className="flex bg-[#18212B] items-center py-1 px-3">
       <img
         className="w-10 h-10 object-cover rounded-full object-center "
-        src={chatPartner?.avatar ?? CONSTS.PATH_NO_AVATAR}
+        src={chatPartner?.avatar ?? UI_CONSTS.PATH_NO_AVATAR}
       />
       <div className="p-3">
         <div>{chatPartner?.name}</div>

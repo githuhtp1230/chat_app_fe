@@ -4,13 +4,16 @@ import socketUtil from "../../utils/socket_util";
 import { useSelector } from "react-redux";
 import RenderIf from "../RenderIf";
 import { uploadFile, uploadFiles } from "../../services/upload_service";
-import CONSTS from "../../constants/consts";
+import { MESSAGE_CONSTS, UI_CONSTS } from "../../constants/ui_consts";
 const { IoMdAddCircle, IoSend, AiFillLike, FaImage, IoCloseSharp } = icons;
 
 const ChatInputBar = ({ chatId, onSendMessage }) => {
   const [message, setMessage] = useState("");
   const [images, setImages] = useState([]);
+
   const filesRef = useRef(null);
+  const inputRef = useRef(null);
+
   const currentUserId = useSelector((state) => state.profile.data.id);
 
   const onChangeMessage = (e) => {
@@ -22,7 +25,7 @@ const ChatInputBar = ({ chatId, onSendMessage }) => {
   const handleSendMessage = async () => {
     if (images.length > 0 && filesRef.current) {
       for (const image of images) {
-        onSendMessage(`${CONSTS.PREFIX_IMG}${image}`);
+        onSendMessage(`${MESSAGE_CONSTS.PREFIX_IMG}${image}`);
       }
       if (message.trim().length > 0) {
         onSendMessage(message);
@@ -38,10 +41,11 @@ const ChatInputBar = ({ chatId, onSendMessage }) => {
         socketUtil.sendMessage(
           chatId,
           currentUserId,
-          `${CONSTS.PREFIX_IMG}${res.data}`
+          `${MESSAGE_CONSTS.PREFIX_IMG}${res.data}`
         );
       }
       filesRef.current = null;
+      inputRef.current.value = null;
       if (message.trim().length <= 0) {
         return;
       }
@@ -56,11 +60,12 @@ const ChatInputBar = ({ chatId, onSendMessage }) => {
       socketUtil.sendMessage(chatId, currentUserId, message);
       setMessage("");
     }
+    inputRef.current.value = null;
   };
 
   const handleSendLike = () => {
-    socketUtil.sendMessage(chatId, currentUserId, CONSTS.PREFIX_LIKE);
-    onSendMessage(CONSTS.PREFIX_LIKE);
+    socketUtil.sendMessage(chatId, currentUserId, MESSAGE_CONSTS.PREFIX_LIKE);
+    onSendMessage(MESSAGE_CONSTS.PREFIX_LIKE);
   };
 
   const handleKeyDown = (e) => {
@@ -121,6 +126,7 @@ const ChatInputBar = ({ chatId, onSendMessage }) => {
                   className="hidden"
                   accept="image/*"
                   onChange={handleChangeImage}
+                  ref={inputRef}
                 />
               </label>
             </li>

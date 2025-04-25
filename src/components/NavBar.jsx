@@ -48,21 +48,6 @@ const Navbar = () => {
             </div>
           )}
         </NavLink>
-        <NavLink to={PATH.SETTING}>
-          {({ isActive }) => (
-            <div
-              className={`m-1 py-2 px-3 ${
-                isActive ? "rounded-md bg-[#18212B]" : ""
-              }`}
-            >
-              <IoSettingsSharp
-                size={32}
-                color={isActive ? "#ffff" : "#708499"}
-                className="cursor-pointer"
-              />
-            </div>
-          )}
-        </NavLink>
         <NavLink to={PATH.CONTACTS}>
           {({ isActive }) => (
             <div
@@ -71,6 +56,21 @@ const Navbar = () => {
               }`}
             >
               <RiContactsBook2Fill
+                size={32}
+                color={isActive ? "#ffff" : "#708499"}
+                className="cursor-pointer"
+              />
+            </div>
+          )}
+        </NavLink>
+        <NavLink to={PATH.SETTING}>
+          {({ isActive }) => (
+            <div
+              className={`m-1 py-2 px-3 ${
+                isActive ? "rounded-md bg-[#18212B]" : ""
+              }`}
+            >
+              <IoSettingsSharp
                 size={32}
                 color={isActive ? "#ffff" : "#708499"}
                 className="cursor-pointer"

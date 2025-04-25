@@ -1,46 +1,61 @@
-import React, { Fragment, use, useEffect, useRef } from "react";
+import React, {
+  Fragment,
+  use,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import MessageContent from "./MessageContent";
 import { parseISO, differenceInMinutes } from "date-fns";
 import RenderIf from "../RenderIf";
 import MessageLike from "./MessageLike";
-import { useSelector } from "react-redux";
-import CONSTS from "../../constants/consts";
+import { useDispatch, useSelector } from "react-redux";
 import MessageImage from "./MessageImage";
 import { ClipLoader } from "react-spinners";
 import { ThreeDot } from "react-loading-indicators";
+import {
+  MESSAGE_CONSTS,
+  SCROLL_MODE,
+  UI_CONSTS,
+} from "../../constants/ui_consts";
+import {
+  fetchMessagesPageOfChat,
+  fetchMoreMessagesPageOfChat,
+} from "../../redux/reducers/message_reducer";
 
 const MessageList = React.memo(
   ({
-    messages,
-    isSendingSet,
-    onLoadMessage,
     chatId,
-    isLoadingMoreMessage,
     isOtherSendingMessage,
     chatPartner,
+    scrollMode,
+    setScrollMode,
   }) => {
+    const dispatch = useDispatch();
+
+    const [isLoadingLoadMoreMessage, setIsLoadingLoadMoreMessage] =
+      useState(false);
+
+    const currentUserId = useSelector((state) => state.profile.data.id);
+    const sendingMessageIds = useSelector(
+      (state) => state.message.data.sendingMessageIds
+    );
+    const isLast = useSelector((state) => state.message.data.isLast);
+    const messages = useSelector((state) => state.message.data.messages);
+
     const scrollToLastMessageRef = useRef(null);
     const onScroll = useRef(null);
-    const DISTANCE_MINUTES = 25;
-    const DISTANCE_CLOSE_MINUTES = 7;
-    const currentUserId = useSelector((state) => state.profile.data.id);
     const prevScrollHeightRef = useRef(0);
     const prevScrollTopRef = useRef(0);
 
-    const handleScroll = () => {
-      if (onScroll.current.scrollTop === 0) {
-        prevScrollHeightRef.current = onScroll.current.scrollHeight;
-        prevScrollTopRef.current = onScroll.current.scrollTop;
-        onLoadMessage();
-      }
-    };
-
     useEffect(() => {
       requestAnimationFrame(() => {
-        console.log("scroll");
-        scrollToLastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
+        scrollToLastMessageRef.current?.scrollIntoView({
+          behavior: "smooth",
+        });
       });
-    }, [chatId]);
+    }, []);
 
     useEffect(() => {
       if (prevScrollHeightRef.current && onScroll.current) {
@@ -50,16 +65,38 @@ const MessageList = React.memo(
 
         prevScrollHeightRef.current = 0;
         prevScrollTopRef.current = 0;
-      } else {
+      } else if (scrollMode == SCROLL_MODE.TO_LAST) {
         requestAnimationFrame(() => {
-          if (onScroll.current && onScroll.current.scrollTop !== 0) {
-            scrollToLastMessageRef.current?.scrollIntoView({
-              behavior: "smooth",
-            });
-          }
+          scrollToLastMessageRef.current?.scrollIntoView({
+            behavior: "smooth",
+          });
         });
       }
+      setScrollMode(SCROLL_MODE.NONE);
     }, [messages]);
+
+    const handleScroll = () => {
+      if (onScroll.current.scrollTop === 0) {
+        prevScrollHeightRef.current = onScroll.current.scrollHeight;
+        prevScrollTopRef.current = onScroll.current.scrollTop;
+        onLoadMoreMessage();
+      }
+    };
+
+    const onLoadMoreMessage = () => {
+      if (isLast) return;
+      setIsLoadingLoadMoreMessage(true);
+      setTimeout(() => {
+        dispatch(
+          fetchMoreMessagesPageOfChat({
+            chatId,
+            size: MESSAGE_CONSTS.PAGE_SIZE,
+            cursor: messages[0]?.id || null,
+          })
+        );
+        setIsLoadingLoadMoreMessage(false);
+      }, 300);
+    };
 
     const distanceInMinutes = (messageTime1, messageTime2) => {
       try {
@@ -89,7 +126,11 @@ const MessageList = React.memo(
         return false;
       }
       if (
-        isOverMinutes(DISTANCE_CLOSE_MINUTES, prevMessageTime, curMessageTime)
+        isOverMinutes(
+          MESSAGE_CONSTS.DISTANCE_CLOSE_MINUTES,
+          prevMessageTime,
+          curMessageTime
+        )
       ) {
         return false;
       }
@@ -103,7 +144,11 @@ const MessageList = React.memo(
         return false;
       }
       if (
-        isOverMinutes(DISTANCE_CLOSE_MINUTES, curMessageTime, nextMessageTime)
+        isOverMinutes(
+          MESSAGE_CONSTS.DISTANCE_CLOSE_MINUTES,
+          curMessageTime,
+          nextMessageTime
+        )
       ) {
         return false;
       }
@@ -118,20 +163,20 @@ const MessageList = React.memo(
           onScroll={handleScroll}
         >
           <div className="flex justify-center">
-            <ClipLoader color="#fff" loading={isLoadingMoreMessage} />
+            <ClipLoader color="#fff" loading={isLoadingLoadMoreMessage} />
           </div>
           {messages?.map((item, index) => {
             const prevMessageTimeDetail =
               messages[index - 1]?.messageTimeDetail;
-            const isLike = item.content.startsWith(CONSTS.PREFIX_LIKE);
-            const isImg = item.content.startsWith(CONSTS.PREFIX_IMG);
+            const isLike = item.content.startsWith(MESSAGE_CONSTS.PREFIX_LIKE);
+            const isImg = item.content.startsWith(MESSAGE_CONSTS.PREFIX_IMG);
             const isMe = currentUserId == messages[index].sender.id;
             const isPrevMessageIsMine =
               currentUserId == messages[index - 1]?.sender.id;
             const isNextMessageIsMine =
               currentUserId == messages[index + 1]?.sender.id;
             let isSending = false;
-            if (isSendingSet.has(messages[index].id)) {
+            if (sendingMessageIds.includes(messages[index].id)) {
               isSending = true;
             }
             return (
@@ -139,7 +184,7 @@ const MessageList = React.memo(
                 <RenderIf
                   condition={
                     isOverMinutes(
-                      DISTANCE_MINUTES,
+                      MESSAGE_CONSTS.DISTANCE_MINUTES,
                       prevMessageTimeDetail,
                       item.messageTimeDetail
                     ) || prevMessageTimeDetail == null
@@ -159,7 +204,7 @@ const MessageList = React.memo(
                 <RenderIf condition={!isLike && !isImg}>
                   <MessageContent
                     isOver30Minutes={isOverMinutes(
-                      DISTANCE_MINUTES,
+                      MESSAGE_CONSTS.DISTANCE_MINUTES,
                       prevMessageTimeDetail,
                       item.messageTimeDetail
                     )}
@@ -180,7 +225,7 @@ const MessageList = React.memo(
                 <RenderIf condition={isImg}>
                   <MessageImage
                     isMe={isMe}
-                    src={item.content.replace(CONSTS.PREFIX_IMG, "")}
+                    src={item.content.replace(MESSAGE_CONSTS.PREFIX_IMG, "")}
                     isLastMessage={index === messages.length - 1}
                     isSending={isSending}
                   />
@@ -194,7 +239,7 @@ const MessageList = React.memo(
           <RenderIf condition={isOtherSendingMessage}>
             <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex justify-center items-center px-2 py-0.5 gap-2 bg-[#242F3D] rounded-2xl">
               <img
-                src={chatPartner.avatar ?? CONSTS.PATH_NO_AVATAR}
+                src={chatPartner.avatar ?? UI_CONSTS.PATH_NO_AVATAR}
                 className="rounded-full w-6 h-6 "
               />
               <ThreeDot

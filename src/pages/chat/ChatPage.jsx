@@ -37,7 +37,13 @@ const ChatPage = () => {
   return (
     <div className="flex flex-1">
       <ChatList chats={chats} />
-      {selectedChat ? <ChatDetail chat={selectedChat} /> : <div>None chat</div>}
+      {selectedChat ? (
+        <ChatDetail chat={selectedChat} />
+      ) : (
+        <div className="flex justify-center items-center flex-1 text-gray-300">
+          Select a chat to start messaging
+        </div>
+      )}
     </div>
   );
 };

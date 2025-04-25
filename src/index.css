@@ -4,3 +4,8 @@
 .bg-main {
   background-color: #0e1621;
 }
+
+.input-ui-none {
+  border: none;
+  outline: none;
+}

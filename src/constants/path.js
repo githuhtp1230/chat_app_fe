@@ -6,6 +6,7 @@ const PATH = {
   CONTACTS: "/contacts",
   MODALS: {
     PROFILE: "/profile",
+    ADD_CONTACT: "/add-contact",
   },
 };
 

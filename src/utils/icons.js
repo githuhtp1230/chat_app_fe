@@ -8,6 +8,10 @@ import { IoCloseSharp } from "react-icons/io5";
 import { MdLogout } from "react-icons/md";
 import { AiFillLike } from "react-icons/ai";
 import { FaImage } from "react-icons/fa6";
+import { MdFilterAlt } from "react-icons/md";
+import { HiDotsHorizontal } from "react-icons/hi";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { IoMdPersonAdd } from "react-icons/io";
 
 const icons = {
   HiMiniChatBubbleOvalLeftEllipsis,
@@ -20,6 +24,10 @@ const icons = {
   MdLogout,
   AiFillLike,
   FaImage,
+  MdFilterAlt,
+  HiDotsHorizontal,
+  FaRegTrashAlt,
+  IoMdPersonAdd,
 };
 
 export default icons;

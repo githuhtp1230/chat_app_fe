@@ -20,6 +20,7 @@ import Modal from "./components/modals/Modal";
 import CurrentProfile from "./components/profile/CurrentProfile";
 import socketUtil from "./utils/socket_util";
 import ContactPage from "./pages/contact/ContactPage";
+import AddContact from "./components/contact/AddContact";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -69,10 +70,6 @@ const App = () => {
           </Route>
           <Route element={<PrivateRoute />}>
             <Route path={PATH.CONTACTS} element={<ContactPage />} />
-            <Route
-              path={`${PATH.CONTACTS}/:userId`}
-              element={<ContactPage />}
-            />
           </Route>
         </Routes>
         {state?.backgroundLocation && (
@@ -85,6 +82,14 @@ const App = () => {
                     title={"Current Profile"}
                     children={<CurrentProfile />}
                   />
+                }
+              ></Route>
+            </Route>
+            <Route element={<PrivateRoute />}>
+              <Route
+                path={PATH.MODALS.ADD_CONTACT}
+                element={
+                  <Modal title={"Add contact"} children={<AddContact />} />
                 }
               ></Route>
             </Route>

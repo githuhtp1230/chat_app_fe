@@ -1,24 +1,24 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import PATH from "../../constants/path";
-import CONSTS from "../../constants/consts";
 import RenderIf from "../RenderIf";
 import icons from "../../utils/icons";
+import { MESSAGE_CONSTS, UI_CONSTS } from "../../constants/ui_consts";
 const { AiFillLike } = icons;
 
 const Chat = ({ chat }) => {
-  const isLike = chat?.lastMessage?.startsWith(CONSTS.PREFIX_LIKE);
-  const isImg = chat?.lastMessage?.startsWith(CONSTS.PREFIX_IMG);
+  const isLike = chat?.lastMessage?.startsWith(MESSAGE_CONSTS.PREFIX_LIKE);
+  const isImg = chat?.lastMessage?.startsWith(MESSAGE_CONSTS.PREFIX_IMG);
   return (
     <NavLink to={`${PATH.CHAT}/${chat.id}`}>
       <div className="flex items-center py-1.5 px-2 min-w-[280px] justify-between hover:bg-[#252E3D] cursor-pointer rounded-[8px]">
         <div className="flex justify-center items-center">
           <img
             className="w-12 h-12 rounded-full object-cover object-center"
-            src={chat?.chatPartner.avatar ?? CONSTS.PATH_NO_AVATAR}
+            src={chat?.chatPartner.avatar ?? UI_CONSTS.PATH_NO_AVATAR}
           />
           <div className="py-1 px-3">
-            <h1 className="font-semibold text-[16px]">
+            <h1 className="font-semibold text-[16px] text-white">
               {chat?.chatPartner.name}
             </h1>
             <div className="text-[15px] text-[#949494] flex items-center h-4 truncate max-w-[160px]">
