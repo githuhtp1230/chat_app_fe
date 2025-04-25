@@ -6,3 +6,10 @@ export const fetchChats = async () => {
   );
   return [error, result];
 };
+
+export const createChatService = async (chatPartnerId) => {
+  const [error, result] = await handlerRequest(
+    httpRequest.post("me/conversations", { chatPartnerId })
+  );
+  return [error, result];
+};

@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getChats, updateChat } from "../../redux/reducers/chat_reducer";
 import socketUtil from "../../utils/socket_util";
 import SOCKET_CONSTS from "../../constants/socket_consts";
+import { resetMessages } from "../../redux/reducers/message_reducer";
 
 const ChatPage = () => {
   const { conversationId } = useParams();
@@ -27,6 +28,10 @@ const ChatPage = () => {
         onReceivedMessage
       );
     });
+
+    return () => {
+      dispatch(resetMessages());
+    };
   }, []);
 
   const chats = useSelector((state) => state.chat.data);

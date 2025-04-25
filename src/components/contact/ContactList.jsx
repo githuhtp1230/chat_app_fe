@@ -9,20 +9,22 @@ const ContactList = ({ filterMode, searchContact }) => {
     let filterContacts = [...contacts];
     if (searchContact) {
       filterContacts = filterContacts.filter((contact) =>
-        contact.name.toLowerCase().includes(searchContact.trim().toLowerCase())
+        contact.contacted.name
+          .toLowerCase()
+          .includes(searchContact.trim().toLowerCase())
       );
     }
     const sorted = [...filterContacts].sort((a, b) =>
-      a.name.localeCompare(b.name)
+      a.contacted.name.localeCompare(b.contacted.name)
     );
 
     return filterMode ? sorted : sorted.reverse();
   }, [filterMode, searchContact, contacts]);
 
   return (
-    <div>
+    <div className="mt-5">
       {filterAndSortedContacts?.map((item) => {
-        return <ContactItem key={item.id} contact={item} />;
+        return <ContactItem key={item.contacted.id} contact={item} />;
       })}
     </div>
   );

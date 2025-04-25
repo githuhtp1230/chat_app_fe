@@ -46,7 +46,20 @@ const contactReducer = createSlice({
   name: "chat",
   initialState: {
     data: {
+      chat: null,
       contacts: [],
+    },
+  },
+  reducers: {
+    setCurrentChat: (state, action) => {
+      state.data.chat = action.payload;
+    },
+    updateCurrentChat: (state, action) => {
+      state.data.contacts.forEach((contact, index) => {
+        if (!contact.conversationId) {
+          state.data.contacts[index].conversationId = action.payload.id;
+        }
+      });
     },
   },
   extraReducers: (builder) => {
@@ -56,16 +69,20 @@ const contactReducer = createSlice({
       })
       .addCase(deleteContact.fulfilled, (state, action) => {
         state.data.contacts = state.data.contacts.filter(
-          (contact) => contact.id != action.payload.data.id
+          (contact) => contact.contacted.id != action.payload.data.id
         );
+        state.data.chat = null;
       })
       .addCase(addContact.fulfilled, (state, action) => {
         state.data.contacts = [
           ...state.data.contacts,
-          action.payload.data.contacted,
+          {
+            contacted: action.payload.data.contacted,
+          },
         ];
       });
   },
 });
 
+export const { setCurrentChat, updateCurrentChat } = contactReducer.actions;
 export default contactReducer.reducer;

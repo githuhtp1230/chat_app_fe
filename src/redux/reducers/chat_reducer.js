@@ -1,10 +1,21 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchChats } from "../../services/chat_service";
+import { createChatService, fetchChats } from "../../services/chat_service";
 
 export const getChats = createAsyncThunk(
   "/me/conversations",
   async (_, { rejectWithValue }) => {
     const [error, result] = await fetchChats();
+    if (error) {
+      return rejectWithValue(error?.response?.data);
+    }
+    return result;
+  }
+);
+
+export const createChat = createAsyncThunk(
+  "/me/create-conversation",
+  async (chatPartnerId, { rejectWithValue }) => {
+    const [error, result] = await createChatService(chatPartnerId);
     if (error) {
       return rejectWithValue(error?.response?.data);
     }

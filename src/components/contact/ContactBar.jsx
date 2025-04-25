@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import icons from "../../utils/icons";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteContact } from "../../redux/reducers/contact_reducer";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import PATH from "../../constants/path";
@@ -11,11 +11,13 @@ const ContactBar = ({ setFilterMode, setSearchContact, filterMode }) => {
 
   const [dropdownWidth, setDropdownWidth] = useState(0);
 
+  const chat = useSelector((state) => state.contact.data.chat);
+
   useEffect(() => {
     if (buttonRef.current) {
       setDropdownWidth(buttonRef.current.offsetWidth);
     }
-  }, []);
+  }, [chat]);
 
   const onChangeSearch = (e) => {
     setSearchContact(e.target.value);

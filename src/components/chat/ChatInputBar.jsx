@@ -1,13 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
 import icons from "../../utils/icons";
 import socketUtil from "../../utils/socket_util";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import RenderIf from "../RenderIf";
 import { uploadFile, uploadFiles } from "../../services/upload_service";
 import { MESSAGE_CONSTS, UI_CONSTS } from "../../constants/ui_consts";
+import { createChat } from "../../redux/reducers/chat_reducer";
+import {
+  setCurrentChat,
+  updateCurrentChat,
+} from "../../redux/reducers/contact_reducer";
+import SOCKET_CONSTS from "../../constants/socket_consts";
 const { IoMdAddCircle, IoSend, AiFillLike, FaImage, IoCloseSharp } = icons;
 
 const ChatInputBar = ({ chatId, onSendMessage }) => {
+  const dispatch = useDispatch();
+
   const [message, setMessage] = useState("");
   const [images, setImages] = useState([]);
 
@@ -15,14 +23,35 @@ const ChatInputBar = ({ chatId, onSendMessage }) => {
   const inputRef = useRef(null);
 
   const currentUserId = useSelector((state) => state.profile.data.id);
+  const chatContact = useSelector((state) => state.contact.data.chat);
 
   const onChangeMessage = (e) => {
     const message = e.target.value;
-    socketUtil.sendMessage(chatId, currentUserId, "<is_sending>", true);
     setMessage(message);
+    if (!chatId) return;
+    socketUtil.sendMessage(chatId, currentUserId, "<is_sending>", true);
   };
 
   const handleSendMessage = async () => {
+    const cloneChatContact = { ...chatContact };
+    if (!chatId) {
+      try {
+        var res = await dispatch(
+          createChat(cloneChatContact.chatPartner.id)
+        ).unwrap();
+        setTimeout(() => {
+          dispatch(
+            updateCurrentChat({
+              id: res.data.id,
+              chatPartner: cloneChatContact.chatPartner,
+            })
+          );
+        }, 100);
+        cloneChatContact.id = res.data.id;
+      } catch (error) {
+        console.log(error);
+      }
+    }
     if (images.length > 0 && filesRef.current) {
       for (const image of images) {
         onSendMessage(`${MESSAGE_CONSTS.PREFIX_IMG}${image}`);
@@ -39,7 +68,7 @@ const ChatInputBar = ({ chatId, onSendMessage }) => {
         const res = await uploadFile(file);
 
         socketUtil.sendMessage(
-          chatId,
+          chatId ?? cloneChatContact.id,
           currentUserId,
           `${MESSAGE_CONSTS.PREFIX_IMG}${res.data}`
         );
@@ -50,14 +79,22 @@ const ChatInputBar = ({ chatId, onSendMessage }) => {
         return;
       }
       setTimeout(() => {
-        socketUtil.sendMessage(chatId, currentUserId, message);
+        socketUtil.sendMessage(
+          chatId ?? cloneChatContact.id,
+          currentUserId,
+          message
+        );
       }, 100);
       return;
     }
 
     if (message.trim().length > 0) {
       onSendMessage(message);
-      socketUtil.sendMessage(chatId, currentUserId, message);
+      socketUtil.sendMessage(
+        chatId ?? cloneChatContact.id,
+        currentUserId,
+        message
+      );
       setMessage("");
     }
     inputRef.current.value = null;

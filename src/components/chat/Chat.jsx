@@ -11,7 +11,7 @@ const Chat = ({ chat }) => {
   const isImg = chat?.lastMessage?.startsWith(MESSAGE_CONSTS.PREFIX_IMG);
   return (
     <NavLink to={`${PATH.CHAT}/${chat.id}`}>
-      <div className="flex items-center py-1.5 px-2 min-w-[280px] justify-between hover:bg-[#252E3D] cursor-pointer rounded-[8px]">
+      <div className="flex items-center py-1.5 px-2 w-full justify-between hover:bg-[#252E3D] cursor-pointer rounded-[8px]">
         <div className="flex justify-center items-center">
           <img
             className="w-12 h-12 rounded-full object-cover object-center"

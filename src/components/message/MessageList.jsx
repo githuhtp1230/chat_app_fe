@@ -76,7 +76,7 @@ const MessageList = React.memo(
     }, [messages]);
 
     const handleScroll = () => {
-      if (onScroll.current.scrollTop === 0) {
+      if (onScroll.current.scrollTop === 0 && !isLast) {
         prevScrollHeightRef.current = onScroll.current.scrollHeight;
         prevScrollTopRef.current = onScroll.current.scrollTop;
         onLoadMoreMessage();
@@ -239,7 +239,7 @@ const MessageList = React.memo(
           <RenderIf condition={isOtherSendingMessage}>
             <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex justify-center items-center px-2 py-0.5 gap-2 bg-[#242F3D] rounded-2xl">
               <img
-                src={chatPartner.avatar ?? UI_CONSTS.PATH_NO_AVATAR}
+                src={chatPartner?.avatar ?? UI_CONSTS.PATH_NO_AVATAR}
                 className="rounded-full w-6 h-6 "
               />
               <ThreeDot

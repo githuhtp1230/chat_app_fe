@@ -26,7 +26,6 @@ import { MESSAGE_CONSTS, SCROLL_MODE } from "../../constants/ui_consts";
 const ChatDetail = ({ chat }) => {
   const dispatch = useDispatch();
 
-  const [isLoadingMoreMessage, setIsLoadingMoreMessage] = useState(false);
   const [isOtherSendingMessage, setIsOtherSendingMessage] = useState(false);
   const [scrollMode, setScrollMode] = useState(SCROLL_MODE.TO_LAST);
 
@@ -53,6 +52,10 @@ const ChatDetail = ({ chat }) => {
   };
 
   useEffect(() => {
+    if (!chat.id) {
+      dispatch(resetMessages());
+    }
+
     dispatch(
       fetchMessagesPageOfChat({
         chatId: chat.id,
@@ -80,13 +83,16 @@ const ChatDetail = ({ chat }) => {
       <ChatPartnerInfo chatPartner={chat?.chatPartner} />
       <MessageList
         chatId={chat.id}
-        isLoadingMoreMessage={isLoadingMoreMessage}
         isOtherSendingMessage={isOtherSendingMessage}
         chatPartner={chat.chatPartner}
         scrollMode={scrollMode}
         setScrollMode={setScrollMode}
       />
-      <ChatInputBar chatId={chat.id} onSendMessage={onSendMessage} />
+      <ChatInputBar
+        chatId={chat.id}
+        onSendMessage={onSendMessage}
+        onReceivedMessage={onReceivedMessage}
+      />
     </div>
   );
 };

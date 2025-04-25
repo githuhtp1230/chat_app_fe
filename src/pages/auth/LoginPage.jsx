@@ -30,14 +30,13 @@ const LoginPage = () => {
     console.log(dataLogin);
   };
 
-  const onSubmitForm = (e) => {
+  const onSubmitForm = async (e) => {
     e.preventDefault();
     try {
-      const data = dispatch(login(dataLogin)).unwrap();
+      const data = await dispatch(login(dataLogin)).unwrap();
       navigate(PATH.CHAT);
       toast.success(data.message);
     } catch (error) {
-      console.log(error);
       toast.error(error.message);
     }
   };
