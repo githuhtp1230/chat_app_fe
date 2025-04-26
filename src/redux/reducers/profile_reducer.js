@@ -13,7 +13,7 @@ export const getMyInfo = createAsyncThunk(
   }
 );
 
-const profileReducer = createSlice({
+const profileSlice = createSlice({
   name: "profile",
   initialState: {
     data: null,
@@ -32,4 +32,4 @@ const profileReducer = createSlice({
   },
 });
 
-export default profileReducer.reducer;
+export default profileSlice.reducer;

@@ -33,9 +33,7 @@ const MessageContent = ({
             !isMe && isCloseNextMessage && !isNextMessageIsMine
               ? "rounded-bl-sm"
               : "rounded-br-2xl",
-            isMe
-              ? "bg-[hsl(217,100%,61%)] text-white"
-              : "bg-[#253444] text-gray-200"
+            isMe ? "bg-info text-base-content" : "bg-base-100 text-white"
           )}
           style={
             !isClosePrevMessage && !isOver30Minutes
@@ -47,12 +45,12 @@ const MessageContent = ({
         </div>
       </div>
       <RenderIf condition={isSending && isMe}>
-        <p className="flex justify-end text-[14px] text-gray-400">
+        <p className="flex justify-end text-[14px] text-base-content/50">
           <span>Sending</span>
         </p>
       </RenderIf>
       <RenderIf condition={!isSending && isLastMessage && isMe}>
-        <p className="flex justify-end text-[14px] text-gray-400">
+        <p className="flex justify-end text-[14px] text-base-content/50">
           <span>Sent</span>
         </p>
       </RenderIf>

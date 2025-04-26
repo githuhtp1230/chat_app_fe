@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PATH from "../../constants/path";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { register } from "../../redux/reducers/auth_reducer";
 import { toast } from "react-toastify";
@@ -24,7 +24,7 @@ const RegisterPage = () => {
   };
 
   const submitForm = async (e) => {
-    e.preventDefault;
+    e.preventDefault();
     const { name, email, password } = dataRegister;
     try {
       const res = await dispatch(register({ name, email, password })).unwrap();
@@ -36,7 +36,7 @@ const RegisterPage = () => {
   };
 
   const onKeyDown = (e) => {
-    if (e.key === "ENTER") {
+    if (e.key === "Enter") {
       e.stopPropagation();
       submitForm(e);
     }
@@ -53,18 +53,31 @@ const RegisterPage = () => {
               alt=""
             />
 
-            <h1 className="mt-3 text-2xl font-semibold text-gray-800 capitalize sm:text-3xl dark:text-white">
+            <h1 className="mt-3 text-2xl font-semibold text-base-content capitalize">
               Register
             </h1>
 
             <div className="relative flex items-center mt-8">
               <span className="absolute">
-                <i className="fa-solid fa-user w-6 h-6 mx-4 text-gray-300 dark:text-gray-500"></i>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-6 h-6 mx-3 text-base-content/50"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                  />
+                </svg>
               </span>
 
               <input
                 type="text"
-                className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                className="block w-full py-3 text-base-content bg-base-100 border rounded-lg px-11"
                 placeholder="Username"
                 name="name"
                 onChange={onChangeInput}
@@ -76,7 +89,7 @@ const RegisterPage = () => {
               <span className="absolute">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500"
+                  className="w-6 h-6 mx-3 text-base-content/50"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -92,7 +105,7 @@ const RegisterPage = () => {
 
               <input
                 type="email"
-                className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                className="block w-full py-3 text-base-content bg-base-100 border rounded-lg px-11"
                 placeholder="Email address"
                 name="email"
                 onChange={onChangeInput}
@@ -104,7 +117,7 @@ const RegisterPage = () => {
               <span className="absolute">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500"
+                  className="w-6 h-6 mx-3 text-base-content/50"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -120,7 +133,7 @@ const RegisterPage = () => {
 
               <input
                 type="password"
-                className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                className="block w-full px-10 py-3 text-base-content bg-base-100 border rounded-lg"
                 placeholder="Password"
                 name="password"
                 onChange={onChangeInput}
@@ -132,7 +145,7 @@ const RegisterPage = () => {
               <span className="absolute">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500"
+                  className="w-6 h-6 mx-3 text-base-content/50"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -148,7 +161,7 @@ const RegisterPage = () => {
 
               <input
                 type="password"
-                className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                className="block w-full px-10 py-3 text-base-content bg-base-100 border rounded-lg"
                 placeholder="Enter password again"
                 name="againPassword"
                 onChange={onChangeInput}
@@ -156,21 +169,21 @@ const RegisterPage = () => {
               />
             </div>
 
-            <div className="mt-6" onClick={submitForm}>
+            <div className="mt-6">
               <button
-                type="button"
-                className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+                onClick={submitForm}
+                className="w-full px-6 py-3 text-sm font-medium tracking-wide bg-info/90 rounded-[8px]"
               >
-                Sign in
+                Sign up
               </button>
 
-              <p className="mt-4 text-center text-gray-600 dark:text-gray-400">
+              <p className="mt-4 text-center text-base-content/50">
                 or sign in with
               </p>
 
               <a
                 href="#"
-                className="flex items-center justify-center px-6 py-3 mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
+                className="flex items-center justify-center px-6 py-3 mt-4 text-base-content/40 transition-colors duration-300 transform border rounded-lg"
               >
                 <svg className="w-6 h-6 mx-2" viewBox="0 0 40 40">
                   <path
@@ -191,14 +204,13 @@ const RegisterPage = () => {
                   />
                 </svg>
 
-                <span className="mx-2">Sign in with Google</span>
+                <span className="mx-2 text-base-content">
+                  Sign in with Google
+                </span>
               </a>
 
-              <div className="mt-6 text-center ">
-                <Link
-                  to={PATH.LOGIN}
-                  className="text-sm text-blue-500 hover:underline dark:text-blue-400"
-                >
+              <div className="mt-6 text-center">
+                <Link to={PATH.LOGIN} className="text-sm text-info/85">
                   You have an account? Sign in
                 </Link>
               </div>

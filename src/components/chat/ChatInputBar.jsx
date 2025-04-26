@@ -149,13 +149,13 @@ const ChatInputBar = ({ chatId, onSendMessage }) => {
           </div>
           <ul
             tabIndex={0}
-            className="dropdown-content p-1 menu bg-[#202A36] rounded-box z-1 min-w-40 shadow-sm mb-3"
+            className="dropdown-content p-0 menu bg-base-100 rounded-box z-1 min-w-40 shadow-sm mb-3"
           >
             <li>
-              <label>
+              <label className="py-2">
                 <div className="flex justify-center items-center gap-2">
-                  <FaImage />
-                  Hình ảnh
+                  <FaImage className="text-base-content" />
+                  <p className="text-base-content">Hình ảnh</p>
                 </div>
                 <input
                   multiple
@@ -171,7 +171,7 @@ const ChatInputBar = ({ chatId, onSendMessage }) => {
         </div>
         <form className="flex flex-1 ml-3">
           <input
-            className="bg-[#18212B] flex-1 rounded-3xl p-3 pl-5"
+            className="bg-info-content/30 flex-1 rounded-3xl p-3 pl-5"
             type="text"
             placeholder="Type a message..."
             onChange={onChangeMessage}
@@ -179,7 +179,7 @@ const ChatInputBar = ({ chatId, onSendMessage }) => {
             value={message}
           ></input>
           <button
-            className="ml-2 p-3 cursor-pointer active:scale-120 transform transition duration-75 ease-in-out hover:text-[#6bd6fd]"
+            className="ml-2 p-3 cursor-pointer active:scale-120 transform transition duration-75 ease-in-out hover:text-info"
             onClick={handleClick}
             type="button"
           >
@@ -198,9 +198,9 @@ const ChatInputBar = ({ chatId, onSendMessage }) => {
               />
               <div
                 onClick={() => handleRemoveImage(index)}
-                className="p-0.5 bg-[#ececec] absolute top-2 right-2 rounded-full cursor-pointer"
+                className="p-0.5 bg-base-content absolute top-2 right-2 rounded-full cursor-pointer"
               >
-                <IoCloseSharp className="text-[#000]" />
+                <IoCloseSharp className="text-base-100" />
               </div>
             </div>
           ))}

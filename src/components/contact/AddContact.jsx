@@ -35,14 +35,14 @@ const AddContact = () => {
     <form className="">
       <input
         type="text"
-        className="bg-[#212e3e] w-full px-4 py-2 rounded-2xl"
+        className="bg-base-100 w-full px-4 py-2 rounded-2xl"
         placeholder="Type email contact"
         onChange={onChangeValue}
         onKeyDown={onKeyDown}
       />
       <div className="flex justify-end mt-5">
         <button
-          className="bg-[#0066a9] px-4 py-2 rounded-2xl cursor-pointer hover:bg-[#3092ca]"
+          className="bg-info/80 px-4 py-2 rounded-2xl cursor-pointer hover:bg-info"
           type="button"
           onClick={handleAddContact}
         >

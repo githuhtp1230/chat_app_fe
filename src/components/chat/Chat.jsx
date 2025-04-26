@@ -11,28 +11,34 @@ const Chat = ({ chat }) => {
   const isImg = chat?.lastMessage?.startsWith(MESSAGE_CONSTS.PREFIX_IMG);
   return (
     <NavLink to={`${PATH.CHAT}/${chat.id}`}>
-      <div className="flex items-center py-1.5 px-2 w-full justify-between hover:bg-[#252E3D] cursor-pointer rounded-[8px]">
+      <div className="flex items-center py-1.5 px-2 w-full justify-between hover:bg-base-content/10 cursor-pointer rounded-[8px]">
         <div className="flex justify-center items-center">
           <img
             className="w-12 h-12 rounded-full object-cover object-center"
             src={chat?.chatPartner.avatar ?? UI_CONSTS.PATH_NO_AVATAR}
           />
           <div className="py-1 px-3">
-            <h1 className="font-semibold text-[16px] text-white">
+            <h1 className="font-semibold text-[16px] text-base-content">
               {chat?.chatPartner.name}
             </h1>
-            <div className="text-[15px] text-[#949494] flex items-center h-4 truncate max-w-[160px]">
+            <div className="text-[15px] flex items-center h-4 truncate max-w-[160px]">
               <RenderIf condition={!isLike && !isImg}>
-                <p className="truncate">{chat?.lastMessage}</p>
+                <p className="truncate text-base-content/50">
+                  {chat?.lastMessage}
+                </p>
               </RenderIf>
               <RenderIf condition={isLike}>
-                <AiFillLike className="text-[#3885FF]" />
+                <AiFillLike className="text-info/80" />
               </RenderIf>
-              <RenderIf condition={isImg}>Photo</RenderIf>
+              <RenderIf condition={isImg}>
+                <p className="text-base-content/50">Photo</p>
+              </RenderIf>
             </div>
           </div>
         </div>
-        <p className="text-[13px] text-gray-400">{chat?.lastMessageTime}</p>
+        <p className="text-[13px] text-base-content/50">
+          {chat?.lastMessageTime}
+        </p>
       </div>
     </NavLink>
   );

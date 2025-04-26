@@ -24,21 +24,21 @@ const Modal = ({ children, title, beforeRoute }) => {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-[#0d111683] bg-opacity-50"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-base-300/70"
       onClick={handleOverlayClick}
     >
       <div
-        className="bg-[#18212B] p-6 rounded-2xl shadow-lg w-[500px]"
+        className="bg-base-200 p-6 rounded-2xl shadow-lg w-[500px]"
         onClick={stopPropagation}
       >
         <div className="flex justify-between">
-          <h2 className="text-[22px] text-[#EBEBEB] font-semibold">
+          <h2 className="text-[22px] text-base-content/80 font-semibold">
             {title || "None Title"}
           </h2>
           <button type="button">
             <IoCloseSharp
               size={30}
-              className="cursor-pointer text-[#878787] hover:text-white"
+              className="cursor-pointer text-base-content/50 hover:text-base-content"
               onClick={handleClose}
             />
           </button>

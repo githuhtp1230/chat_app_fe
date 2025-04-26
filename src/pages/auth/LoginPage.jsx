@@ -52,7 +52,7 @@ const LoginPage = () => {
               alt=""
             />
 
-            <h1 className="mt-3 text-2xl font-semibold text-gray-800 capitalize sm:text-3xl dark:text-white">
+            <h1 className="mt-3 text-2xl font-semibold text-base-content capitalize">
               sign In
             </h1>
 
@@ -60,7 +60,7 @@ const LoginPage = () => {
               <span className="absolute">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500"
+                  className="w-6 h-6 mx-3 text-base-content/50"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -76,7 +76,7 @@ const LoginPage = () => {
 
               <input
                 type="text"
-                className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                className="block w-full py-3 text-base-content bg-base-100 border rounded-lg px-11"
                 placeholder="Email address"
                 name="email"
                 onChange={onChangeDataLogin}
@@ -87,7 +87,7 @@ const LoginPage = () => {
               <span className="absolute">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500"
+                  className="w-6 h-6 mx-3 text-base-content/50"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -103,7 +103,7 @@ const LoginPage = () => {
 
               <input
                 type="password"
-                className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                className="block w-full px-10 py-3 text-base-content bg-base-100 border rounded-lg"
                 placeholder="Password"
                 name="password"
                 onChange={onChangeDataLogin}
@@ -113,18 +113,18 @@ const LoginPage = () => {
             <div className="mt-6">
               <button
                 onClick={onSubmitForm}
-                className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400"
+                className="w-full px-6 py-3 text-sm font-medium tracking-wide bg-info/90 rounded-[8px]"
               >
                 Sign in
               </button>
 
-              <p className="mt-4 text-center text-gray-600 dark:text-gray-400">
+              <p className="mt-4 text-center text-base-content/50">
                 or sign in with
               </p>
 
               <a
                 href="#"
-                className="flex items-center justify-center px-6 py-3 mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
+                className="flex items-center justify-center px-6 py-3 mt-4 text-base-content/40 transition-colors duration-300 transform border rounded-lg "
               >
                 <svg className="w-6 h-6 mx-2" viewBox="0 0 40 40">
                   <path
@@ -145,14 +145,13 @@ const LoginPage = () => {
                   />
                 </svg>
 
-                <span className="mx-2">Sign in with Google</span>
+                <span className="mx-2 text-base-content">
+                  Sign in with Google
+                </span>
               </a>
 
               <div className="mt-6 text-center ">
-                <Link
-                  to={PATH.REGISTER}
-                  className="text-sm text-blue-500 hover:underline dark:text-blue-400"
-                >
+                <Link to={PATH.REGISTER} className="text-sm text-info/85">
                   Don’t have an account yet? Sign up
                 </Link>
               </div>

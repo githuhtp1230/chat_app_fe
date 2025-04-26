@@ -55,7 +55,7 @@ const App = () => {
 
   return (
     <>
-      <div className="flex bg-main h-screen">
+      <div className="flex bg-base-300 h-screen">
         <Navbar />
         <Routes location={state?.backgroundLocation || location}>
           <Route path={PATH.REGISTER} element={<RegisterPage />} />

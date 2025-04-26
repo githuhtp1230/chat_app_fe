@@ -35,7 +35,7 @@ const ContactItem = ({ contact }) => {
   return (
     <div
       onClick={handleSelectedContact}
-      className="flex items-center py-3 px-3 mr-3 justify-between rounded-[10px] hover:bg-[#18212B] cursor-pointer"
+      className="flex items-center py-3 px-3 mr-3 justify-between rounded-[10px] hover:bg-base-200 cursor-pointer"
     >
       <div className="flex items-center gap-3">
         <img
@@ -47,19 +47,19 @@ const ContactItem = ({ contact }) => {
       </div>
       <div
         onClick={(e) => e.stopPropagation()}
-        className="dropdown dropdown-bottom dropdown-end hover:bg-[#6f6f6f33] rounded-2xl"
+        className="dropdown dropdown-bottom dropdown-end hover:bg-base-content/10 rounded-2xl"
       >
         <div tabIndex={0} role="button" className="p-1 cursor-pointer">
           <HiDotsHorizontal />
         </div>
         <ul
           tabIndex={0}
-          className="dropdown-content p-0 menu bg-[#18212B] rounded-box z-1 w-40 shadow-sm mt-2"
+          className="dropdown-content p-0 menu bg-base-100 rounded-box z-1 w-40 shadow-sm mt-2"
         >
           <li onClick={() => handleDeleteContact(contact.contacted.id)}>
-            <div className="px-3 py-2 text-red-400 flex gap-2">
-              <FaRegTrashAlt />
-              <p>Delete</p>
+            <div className="px-3 py-2 flex gap-2">
+              <FaRegTrashAlt className="text-error" />
+              <p className="text-error">Delete</p>
             </div>
           </li>
         </ul>

@@ -43,7 +43,7 @@ const ContactPage = () => {
             />
           ) : (
             <div className="h-full flex justify-center items-center">
-              <h1 className="text-[18px] text-gray-400 px-4 py-2 bg-[#1a212a] rounded-2xl">
+              <h1 className="text-[18px] text-base-content/40 px-4 py-2 bg-base-100 rounded-2xl">
                 Add a contact to start messaging
               </h1>
             </div>

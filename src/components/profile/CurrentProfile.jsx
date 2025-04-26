@@ -15,8 +15,8 @@ const CurrentProfile = () => {
         onClick={handleChangeImage}
       />
       <div className="gap-3">
-        <h2>{currentProfile.name}</h2>
-        <p className="text-gray-400">{currentProfile.email}</p>
+        <h2 className="text-base-content">{currentProfile.name}</h2>
+        <p className="text-base-content/50">{currentProfile.email}</p>
       </div>
     </div>
   );

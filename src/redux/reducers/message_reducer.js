@@ -26,7 +26,7 @@ export const fetchMoreMessagesPageOfChat = createAsyncThunk(
   }
 );
 
-const messageReducer = createSlice({
+const messageSlice = createSlice({
   name: "message",
   initialState: {
     data: {
@@ -91,5 +91,5 @@ const messageReducer = createSlice({
 });
 
 export const { sendMessageAction, onReceivedMessageAction, resetMessages } =
-  messageReducer.actions;
-export default messageReducer.reducer;
+  messageSlice.actions;
+export default messageSlice.reducer;

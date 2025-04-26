@@ -42,7 +42,7 @@ export const addContact = createAsyncThunk(
   }
 );
 
-const contactReducer = createSlice({
+const contactSlice = createSlice({
   name: "chat",
   initialState: {
     data: {
@@ -84,5 +84,5 @@ const contactReducer = createSlice({
   },
 });
 
-export const { setCurrentChat, updateCurrentChat } = contactReducer.actions;
-export default contactReducer.reducer;
+export const { setCurrentChat, updateCurrentChat } = contactSlice.actions;
+export default contactSlice.reducer;

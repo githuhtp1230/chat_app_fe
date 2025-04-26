@@ -5,6 +5,7 @@ import icons from "../utils/icons";
 import UserAvatar from "./profile/UserAvatar";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/reducers/auth_reducer";
+import RenderIf from "./RenderIf";
 
 const {
   HiMiniChatBubbleOvalLeftEllipsis,
@@ -23,7 +24,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-[#252E3D] flex flex-col justify-between items-center p-2">
+    <div className="bg-base-100 flex flex-col justify-between items-center p-2">
       <div className="flex flex-col items-center">
         {currentProfile ? (
           <Link
@@ -37,13 +38,15 @@ const Navbar = () => {
           {({ isActive }) => (
             <div
               className={`m-1 py-2 px-3 ${
-                isActive ? "rounded-md bg-[#18212B]" : ""
+                isActive ? "rounded-md bg-base-300" : ""
               }`}
             >
               <HiMiniChatBubbleOvalLeftEllipsis
                 size={32}
-                color={isActive ? "#ffff" : "#708499"}
-                className="cursor-pointer"
+                // color={isActive ? "#b" : "#708499"}
+                className={`cursor-pointer ${
+                  isActive ? "text-base-content" : "text-base-content/50"
+                }`}
               />
             </div>
           )}
@@ -52,13 +55,15 @@ const Navbar = () => {
           {({ isActive }) => (
             <div
               className={`m-1 py-2 px-3 ${
-                isActive ? "rounded-md bg-[#18212B]" : ""
+                isActive ? "rounded-md bg-base-300" : ""
               }`}
             >
               <RiContactsBook2Fill
                 size={32}
-                color={isActive ? "#ffff" : "#708499"}
-                className="cursor-pointer"
+                // color={isActive ? "#b" : "#708499"}
+                className={`cursor-pointer ${
+                  isActive ? "text-base-content" : "text-base-content/50"
+                }`}
               />
             </div>
           )}
@@ -67,25 +72,28 @@ const Navbar = () => {
           {({ isActive }) => (
             <div
               className={`m-1 py-2 px-3 ${
-                isActive ? "rounded-md bg-[#18212B]" : ""
+                isActive ? "rounded-md bg-base-300" : ""
               }`}
             >
               <IoSettingsSharp
                 size={32}
-                color={isActive ? "#ffff" : "#708499"}
-                className="cursor-pointer"
+                className={`cursor-pointer ${
+                  isActive ? "text-base-content" : "text-base-content/50"
+                }`}
               />
             </div>
           )}
         </NavLink>
       </div>
-      <div className="m-1 py-2 px-3">
-        <MdLogout
-          size={32}
-          className="text-[#708499] hover:text-[#ffff] cursor-pointer"
-          onClick={handleLogout}
-        />
-      </div>
+      <RenderIf condition={currentProfile}>
+        <div className="m-1 py-2 px-3 ">
+          <MdLogout
+            size={32}
+            className="text-base-content/50 cursor-pointer hover:text-base-content"
+            onClick={handleLogout}
+          />
+        </div>
+      </RenderIf>
     </div>
   );
 };

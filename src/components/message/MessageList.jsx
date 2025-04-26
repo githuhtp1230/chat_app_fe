@@ -190,7 +190,7 @@ const MessageList = React.memo(
                     ) || prevMessageTimeDetail == null
                   }
                 >
-                  <p className="text-gray-500 text-center text-[14px] py-1.5">
+                  <p className="text-base-content/45 text-center text-[14px] py-1.5">
                     {messages[index].messageTime}
                   </p>
                 </RenderIf>

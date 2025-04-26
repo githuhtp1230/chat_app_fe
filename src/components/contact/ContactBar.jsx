@@ -28,7 +28,7 @@ const ContactBar = ({ setFilterMode, setSearchContact, filterMode }) => {
       <div className="px-5 flex justify-center items-center gap-6">
         <label
           htmlFor="searchInput"
-          className="h-[40px] flex justify-center gap-2 items-center w-full px-3 bg-[#18212B] rounded-2xl flex-3"
+          className="h-[40px] flex justify-center gap-2 items-center w-full px-3 bg-base-100 rounded-2xl flex-3"
         >
           <svg
             className="h-[1em] opacity-50 flex justify-center items-center"
@@ -57,7 +57,7 @@ const ContactBar = ({ setFilterMode, setSearchContact, filterMode }) => {
 
         <button
           ref={buttonRef}
-          className="btn flex flex-1 bg-[#18212B]"
+          className="btn flex flex-1 bg-base-100"
           popoverTarget="popover-1"
           style={{ anchorName: "--anchor-1" }}
         >
@@ -65,14 +65,14 @@ const ContactBar = ({ setFilterMode, setSearchContact, filterMode }) => {
           {filterMode ? <p>Sort names by A - Z</p> : <p>Sort names by Z - A</p>}
         </button>
         <Link to={PATH.MODALS.ADD_CONTACT}>
-          <div className="p-2 hover:bg-[#6f6f6f33] cursor-pointer">
-            <IoMdPersonAdd />
+          <div className="p-2 hover:bg-base-100 cursor-pointer">
+            <IoMdPersonAdd className="text-base-content" />
           </div>
         </Link>
       </div>
 
       <ul
-        className="dropdown p-0 menu rounded-[5px] bg-[#18212B] shadow-sm mt-2"
+        className="dropdown p-0 menu rounded-[5px] bg-base-100 shadow-sm mt-2"
         popover="auto"
         id="popover-1"
         style={{
@@ -81,13 +81,13 @@ const ContactBar = ({ setFilterMode, setSearchContact, filterMode }) => {
         }}
       >
         <li>
-          <div className="p-3" onClick={() => setFilterMode(true)}>
-            Sort names by A - Z
+          <div className="p-3 bg-base-100" onClick={() => setFilterMode(true)}>
+            <p className="text-base-content">Sort names by A - Z</p>
           </div>
         </li>
         <li>
-          <div className="p-3" onClick={() => setFilterMode(false)}>
-            Sort names by Z - A
+          <div className="p-3 bg-base-100" onClick={() => setFilterMode(false)}>
+            <p className="text-base-content">Sort names by Z - A</p>
           </div>
         </li>
       </ul>

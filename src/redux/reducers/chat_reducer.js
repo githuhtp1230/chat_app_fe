@@ -23,7 +23,7 @@ export const createChat = createAsyncThunk(
   }
 );
 
-const chatReducer = createSlice({
+const chatSlice = createSlice({
   name: "chat",
   initialState: {
     data: null,
@@ -43,5 +43,5 @@ const chatReducer = createSlice({
   },
 });
 
-export const { updateChat } = chatReducer.actions;
-export default chatReducer.reducer;
+export const { updateChat } = chatSlice.actions;
+export default chatSlice.reducer;
