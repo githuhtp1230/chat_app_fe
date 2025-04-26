@@ -64,10 +64,7 @@ const ContactBar = ({ setFilterMode, setSearchContact, filterMode }) => {
           <MdFilterAlt />
           {filterMode ? <p>Sort names by A - Z</p> : <p>Sort names by Z - A</p>}
         </button>
-        <Link
-          to={PATH.MODALS.ADD_CONTACT}
-          state={{ backgroundLocation: location }}
-        >
+        <Link to={PATH.MODALS.ADD_CONTACT}>
           <div className="p-2 hover:bg-[#6f6f6f33] cursor-pointer">
             <IoMdPersonAdd />
           </div>

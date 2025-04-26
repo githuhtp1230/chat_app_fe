@@ -3,7 +3,7 @@ import { cookieUtils } from "./cookie_util";
 import SECURITY from "../constants/security";
 
 const httpRequest = axios.create({
-  baseURL: "http://localhost:8080/api/",
+  baseURL: `http://${process.env.BASE_URL}:8080/api/`,
   headers: {
     "Content-Type": "application/json",
   },

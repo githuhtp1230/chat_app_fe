@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import {
   getContacts,
   setCurrentChat,
@@ -28,30 +28,37 @@ const ContactPage = () => {
   }, []);
 
   return (
-    <div className="p-3 py-5 flex flex-1">
-      <div className="flex-1/4">
-        <ContactBar
-          setFilterMode={setFilterMode}
-          setSearchContact={setSearchContact}
-          filterMode={filterMode}
-        />
-        {contacts.length > 0 ? (
-          <ContactList filterMode={filterMode} searchContact={searchContact} />
-        ) : (
-          <div className="h-full flex justify-center items-center">
-            <h1 className="text-[18px] text-gray-400 px-4 py-2 bg-[#1a212a] rounded-2xl">
-              Add a contact to start messaging
-            </h1>
-          </div>
-        )}
+    <>
+      <div className="p-3 py-5 flex flex-1">
+        <div className="flex-1/4">
+          <ContactBar
+            setFilterMode={setFilterMode}
+            setSearchContact={setSearchContact}
+            filterMode={filterMode}
+          />
+          {contacts.length > 0 ? (
+            <ContactList
+              filterMode={filterMode}
+              searchContact={searchContact}
+            />
+          ) : (
+            <div className="h-full flex justify-center items-center">
+              <h1 className="text-[18px] text-gray-400 px-4 py-2 bg-[#1a212a] rounded-2xl">
+                Add a contact to start messaging
+              </h1>
+            </div>
+          )}
+        </div>
+        <RenderIf condition={chat != null}>
+          <div className="border-1 border-l-gray-950 mr-4"></div>
+        </RenderIf>
+        <RenderIf condition={chat != null}>
+          <ChatDetail chat={chat} />
+        </RenderIf>
       </div>
-      <RenderIf condition={chat != null}>
-        <div className="border-1 border-l-gray-950 mr-4"></div>
-      </RenderIf>
-      <RenderIf condition={chat != null}>
-        <ChatDetail chat={chat} />
-      </RenderIf>
-    </div>
+
+      <Outlet />
+    </>
   );
 };
 

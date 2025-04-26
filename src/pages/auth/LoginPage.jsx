@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login, register } from "../../redux/reducers/auth_reducer";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PATH from "../../constants/path";
 
 const LoginPage = () => {
@@ -149,12 +149,12 @@ const LoginPage = () => {
               </a>
 
               <div className="mt-6 text-center ">
-                <a
-                  href="#"
+                <Link
+                  to={PATH.REGISTER}
                   className="text-sm text-blue-500 hover:underline dark:text-blue-400"
                 >
                   Don’t have an account yet? Sign up
-                </a>
+                </Link>
               </div>
             </div>
           </form>

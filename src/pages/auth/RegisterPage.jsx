@@ -1,6 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
+import PATH from "../../constants/path";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { register } from "../../redux/reducers/auth_reducer";
+import { toast } from "react-toastify";
 
 const RegisterPage = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [dataRegister, setDataRegister] = useState({
+    name: "",
+    email: "",
+    password: "",
+    againPassword: "",
+  });
+
+  const onChangeInput = (e) => {
+    setDataRegister((prevData) => ({
+      ...prevData,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const submitForm = async (e) => {
+    e.preventDefault;
+    const { name, email, password } = dataRegister;
+    try {
+      const res = await dispatch(register({ name, email, password })).unwrap();
+      navigate(PATH.LOGIN);
+      toast.success(res.message);
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  const onKeyDown = (e) => {
+    if (e.key === "ENTER") {
+      e.stopPropagation();
+      submitForm(e);
+    }
+  };
+
   return (
     <>
       <section className="w-full">
@@ -25,6 +66,9 @@ const RegisterPage = () => {
                 type="text"
                 className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 placeholder="Username"
+                name="name"
+                onChange={onChangeInput}
+                onKeyDown={onKeyDown}
               />
             </div>
 
@@ -50,6 +94,9 @@ const RegisterPage = () => {
                 type="email"
                 className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 placeholder="Email address"
+                name="email"
+                onChange={onChangeInput}
+                onKeyDown={onKeyDown}
               />
             </div>
 
@@ -75,6 +122,9 @@ const RegisterPage = () => {
                 type="password"
                 className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 placeholder="Password"
+                name="password"
+                onChange={onChangeInput}
+                onKeyDown={onKeyDown}
               />
             </div>
 
@@ -100,11 +150,17 @@ const RegisterPage = () => {
                 type="password"
                 className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 placeholder="Enter password again"
+                name="againPassword"
+                onChange={onChangeInput}
+                onKeyDown={onKeyDown}
               />
             </div>
 
-            <div className="mt-6">
-              <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+            <div className="mt-6" onClick={submitForm}>
+              <button
+                type="button"
+                className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+              >
                 Sign in
               </button>
 
@@ -139,12 +195,12 @@ const RegisterPage = () => {
               </a>
 
               <div className="mt-6 text-center ">
-                <a
-                  href="#"
+                <Link
+                  to={PATH.LOGIN}
                   className="text-sm text-blue-500 hover:underline dark:text-blue-400"
                 >
-                  Don’t have an account yet? Sign up
-                </a>
+                  You have an account? Sign in
+                </Link>
               </div>
             </div>
           </form>

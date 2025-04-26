@@ -60,6 +60,7 @@ const App = () => {
         <Routes location={state?.backgroundLocation || location}>
           <Route path={PATH.REGISTER} element={<RegisterPage />} />
           <Route path={PATH.LOGIN} element={<LoginPage />} />
+          <Route path={PATH.REGISTER} element={<RegisterPage />} />
           <Route path={PATH.SETTING} element={<SettingPage />} />
           <Route element={<PrivateRoute />}>
             <Route path={PATH.CHAT} element={<ChatPage />} />
@@ -69,7 +70,18 @@ const App = () => {
             />
           </Route>
           <Route element={<PrivateRoute />}>
-            <Route path={PATH.CONTACTS} element={<ContactPage />} />
+            <Route path={PATH.CONTACTS} element={<ContactPage />}>
+              <Route
+                path={PATH.MODALS.ADD_CONTACT}
+                element={
+                  <Modal
+                    title={"Add modal"}
+                    children={<AddContact />}
+                    beforeRoute={PATH.CONTACTS}
+                  />
+                }
+              />
+            </Route>
           </Route>
         </Routes>
         {state?.backgroundLocation && (
