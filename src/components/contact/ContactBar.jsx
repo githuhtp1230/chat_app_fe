@@ -28,7 +28,7 @@ const ContactBar = ({ setFilterMode, setSearchContact, filterMode }) => {
       <div className="px-5 flex justify-center items-center gap-6">
         <label
           htmlFor="searchInput"
-          className="h-[40px] flex justify-center gap-2 items-center w-full px-3 bg-base-100 rounded-2xl flex-3"
+          className="h-[40px] flex justify-center gap-2 items-center w-full px-3 bg-base-content/10 rounded-2xl flex-3"
         >
           <svg
             className="h-[1em] opacity-50 flex justify-center items-center"
@@ -65,7 +65,7 @@ const ContactBar = ({ setFilterMode, setSearchContact, filterMode }) => {
           {filterMode ? <p>Sort names by A - Z</p> : <p>Sort names by Z - A</p>}
         </button>
         <Link to={PATH.MODALS.ADD_CONTACT}>
-          <div className="p-2 hover:bg-base-100 cursor-pointer">
+          <div className="p-2 hover:bg-base-content/10 rounded-2xl cursor-pointer">
             <IoMdPersonAdd className="text-base-content" />
           </div>
         </Link>

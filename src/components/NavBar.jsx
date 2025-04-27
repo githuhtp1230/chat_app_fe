@@ -24,7 +24,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-base-100 flex flex-col justify-between items-center p-2">
+    <div className="bg-base-content/7 flex flex-col justify-between items-center p-2">
       <div className="flex flex-col items-center">
         {currentProfile ? (
           <Link

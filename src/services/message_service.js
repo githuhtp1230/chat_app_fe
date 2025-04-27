@@ -40,3 +40,10 @@ export const sendMessagService = async (chatId, message) => {
   );
   return [error, result];
 };
+
+export const fetchMessageImagesOfChat = async (chatId) => {
+  const [error, result] = await handlerRequest(
+    httpRequest.get(`me/conversations/${chatId}/images`)
+  );
+  return [error, result];
+};

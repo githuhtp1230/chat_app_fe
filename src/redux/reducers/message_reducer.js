@@ -73,6 +73,9 @@ const messageSlice = createSlice({
       state.data.messages = [];
       state.data.sendingMessageIds = [];
     },
+    deleteMessage: (state, action) => {
+      console.log(action.payload);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -90,6 +93,10 @@ const messageSlice = createSlice({
   },
 });
 
-export const { sendMessageAction, onReceivedMessageAction, resetMessages } =
-  messageSlice.actions;
+export const {
+  sendMessageAction,
+  onReceivedMessageAction,
+  resetMessages,
+  deleteMessage,
+} = messageSlice.actions;
 export default messageSlice.reducer;

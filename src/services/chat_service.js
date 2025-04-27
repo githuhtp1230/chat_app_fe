@@ -13,3 +13,10 @@ export const createChatService = async (chatPartnerId) => {
   );
   return [error, result];
 };
+
+export const deleteChatService = async (chatId) => {
+  const [error, result] = await handlerRequest(
+    httpRequest.delete(`me/conversations/${chatId}`)
+  );
+  return [error, result];
+};

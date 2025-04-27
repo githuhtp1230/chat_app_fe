@@ -22,12 +22,8 @@ const SettingPage = () => {
           <button
             key={t}
             className={`
-                                    group flex flex-col items-center gap-1.5 p-2 rounded-lg  cursor-pointer hover:bg-base-100
-                                    ${
-                                      theme === t
-                                        ? "bg-base-100"
-                                        : "hover:bg-base-100/50"
-                                    }
+                                    group flex flex-col items-center gap-1.5 p-2 rounded-lg cursor-pointer hover:bg-base-content/20
+                                    ${theme === t ? "bg-base-content/20" : ""}
                                 `}
             data-set-theme={t}
             onClick={() => dispatch(setTheme(t))}

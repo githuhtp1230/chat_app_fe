@@ -5,18 +5,17 @@ import ChatPage from "./pages/chat/ChatPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import LoginPage from "./pages/auth/LoginPage";
 import SettingPage from "./pages/SettingsPage";
-import ProfilePage from "./pages/ProfilePage";
 import PATH from "./constants/path";
 import PrivateRoute from "./routes/PrivateRoute";
 import { ToastContainer, Bounce } from "react-toastify";
 import { cookieUtils } from "./utils/cookie_util";
 import SECURITY from "./constants/security";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getMyInfo } from "./redux/reducers/profile_reducer";
 import ChatDetail from "./components/chat/ChatDetail";
 import { ThreeDot } from "react-loading-indicators";
 import NotFoundPage from "./pages/NotFoundPage";
-import Modal from "./components/modals/Modal";
+import Modal from "./components/modals/ModalLink";
 import CurrentProfile from "./components/profile/CurrentProfile";
 import socketUtil from "./utils/socket_util";
 import ContactPage from "./pages/contact/ContactPage";
@@ -27,6 +26,7 @@ const App = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state;
+
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

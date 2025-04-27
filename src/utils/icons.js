@@ -12,6 +12,7 @@ import { MdFilterAlt } from "react-icons/md";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { IoMdPersonAdd } from "react-icons/io";
+import { GoDotFill } from "react-icons/go";
 
 const icons = {
   HiMiniChatBubbleOvalLeftEllipsis,
@@ -28,6 +29,7 @@ const icons = {
   HiDotsHorizontal,
   FaRegTrashAlt,
   IoMdPersonAdd,
+  GoDotFill,
 };
 
 export default icons;

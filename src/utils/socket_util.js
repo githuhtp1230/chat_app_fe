@@ -14,7 +14,7 @@ class SocketUtil {
     }
 
     this.stompClient = Stomp.over(
-      () => new WebSocket(`ws://${import.meta.env.VITE_IP}:8080/api/ws`)
+      () => new WebSocket(`ws://${import.meta.env.VITE_IP}/api/ws`)
     );
 
     this.stompClient.connect(
@@ -38,9 +38,9 @@ class SocketUtil {
       return;
     }
     const subscription = this.stompClient.subscribe(
-      `/topic/${prefix}/${id}`,
-      (message) => {
-        callback(JSON.parse(message.body));
+      id != null ? `/topic/${prefix}/${id}` : `/topic/${prefix}`,
+      (res) => {
+        callback(JSON.parse(res.body));
       }
     );
     this.subscriptions.set(`${prefix}:${id}`, subscription);
@@ -74,6 +74,21 @@ class SocketUtil {
       JSON.stringify({
         conversationId,
         senderId,
+      })
+    );
+  }
+
+  sendStatus(isOnline, userId) {
+    if (!this.stompClient || !this.stompClient.connected) {
+      console.error("Web socket is not connected");
+      return;
+    }
+    this.stompClient.send(
+      "/app/status",
+      {},
+      JSON.stringify({
+        isOnline,
+        userId,
       })
     );
   }

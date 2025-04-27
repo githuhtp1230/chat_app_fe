@@ -14,12 +14,12 @@ const MessageLike = ({ isMe, isSending, isLastMessage }) => {
         <AiFillLike size={35} className="text-[hsl(217,100%,61%)]" />
       </div>
       <RenderIf condition={isSending && isMe}>
-        <p className="flex justify-end text-[14px] text-gray-400">
+        <p className="flex justify-end text-[14px] text-base-content/50">
           <span>Sending</span>
         </p>
       </RenderIf>
       <RenderIf condition={!isSending && isLastMessage && isMe}>
-        <p className="flex justify-end text-[14px] text-gray-400">
+        <p className="flex justify-end text-[14px] text-base-content/50">
           <span>Sent</span>
         </p>
       </RenderIf>

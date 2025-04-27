@@ -1,23 +1,18 @@
 import React, { useEffect } from "react";
 import Chat from "./Chat";
+import { Link } from "react-router-dom";
+import PATH from "../../constants/path";
+import icons from "../../utils/icons";
+const { IoMdPersonAdd } = icons;
 
 const ChatList = ({ chats }) => {
   return (
-    <div className="pt-6 px-2 bg-base-200 h-full overflow-auto min-w-[280px]">
-      <h1 className="text-[20px] font-bold ml-2 text-base-content">Chats</h1>
-      {chats?.length <= 0 ? (
-        <div className="flex justify-center items-center h-full">
-          <h1 className="w-[70%] text-center text-base-100 text">
-            No chats here, add a contact to chat
-          </h1>
-        </div>
-      ) : (
-        <div className="pt-3">
-          {chats?.map((item) => (
-            <Chat key={item.id} chat={item} />
-          ))}
-        </div>
-      )}
+    <div className="px-2 overflow-auto min-w-[280px]">
+      <div className="pt-3">
+        {chats?.map((item) => (
+          <Chat key={item.id} chat={item} />
+        ))}
+      </div>
     </div>
   );
 };

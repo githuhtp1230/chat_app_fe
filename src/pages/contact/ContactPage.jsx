@@ -30,7 +30,7 @@ const ContactPage = () => {
   return (
     <>
       <div className="p-3 py-5 flex flex-1">
-        <div className="flex-1/4">
+        <div className="flex-4">
           <ContactBar
             setFilterMode={setFilterMode}
             setSearchContact={setSearchContact}

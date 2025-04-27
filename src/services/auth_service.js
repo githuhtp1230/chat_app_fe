@@ -18,3 +18,10 @@ export const logoutService = async () => {
   const [error, result] = await handlerRequest(httpRequest.post("auth/logout"));
   return [error, result];
 };
+
+export const refreshTokenService = async (refreshToken) => {
+  const [error, result] = await handlerRequest(
+    httpRequest.post("auth/refresh-token", { refreshToken })
+  );
+  return [error, result];
+};

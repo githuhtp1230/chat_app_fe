@@ -1,7 +1,9 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import clsx from "clsx";
 import RenderIf from "../RenderIf";
+import icons from "../../utils/icons";
+const { IoCloseSharp } = icons;
 
 const MessageContent = ({
   message,
@@ -15,12 +17,18 @@ const MessageContent = ({
   isSending,
   isLastMessage,
 }) => {
+  const dispath = useDispatch();
+
+  const handleDelete = () => {
+    dispath();
+  };
+
   return (
     <>
       <div className={`flex w-full ${isMe ? "justify-end" : "justify-start"}`}>
         <div
           className={clsx(
-            "max-w-[40%] mt-0.5 py-1.5 px-3 rounded-tl-2xl rounded-bl-2xl",
+            "max-w-[40%] mt-0.5 py-1.5 px-3 rounded-tl-2xl flex justify-center items-center gap-3 rounded-bl-2xl",
             isMe && isClosePrevMessage && isPrevMessageIsMine
               ? "rounded-tr-sm"
               : "rounded-tr-2xl",
@@ -42,6 +50,7 @@ const MessageContent = ({
           }
         >
           {message.content}
+          <IoCloseSharp onClick={handleDelete} />
         </div>
       </div>
       <RenderIf condition={isSending && isMe}>

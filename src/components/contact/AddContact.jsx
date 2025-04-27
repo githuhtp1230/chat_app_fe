@@ -46,7 +46,7 @@ const AddContact = () => {
           type="button"
           onClick={handleAddContact}
         >
-          Add
+          <p className="text-base-content">Add</p>
         </button>
       </div>
     </form>

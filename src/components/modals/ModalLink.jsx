@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import icons from "../../utils/icons";
 const { IoCloseSharp } = icons;
 
-const Modal = ({ children, title, beforeRoute }) => {
+const ModalLink = ({ children, title, beforeRoute }) => {
   const navigate = useNavigate();
 
   const handleClose = () => {
@@ -49,4 +49,4 @@ const Modal = ({ children, title, beforeRoute }) => {
   );
 };
 
-export default Modal;
+export default ModalLink;

@@ -11,9 +11,10 @@ import {
   updateCurrentChat,
 } from "../../redux/reducers/contact_reducer";
 import SOCKET_CONSTS from "../../constants/socket_consts";
+
 const { IoMdAddCircle, IoSend, AiFillLike, FaImage, IoCloseSharp } = icons;
 
-const ChatInputBar = ({ chatId, onSendMessage }) => {
+const ChatInputBar = ({ chatId, onSendMessage, onReceivedMessage }) => {
   const dispatch = useDispatch();
 
   const [message, setMessage] = useState("");
@@ -46,8 +47,13 @@ const ChatInputBar = ({ chatId, onSendMessage }) => {
               chatPartner: cloneChatContact.chatPartner,
             })
           );
-        }, 100);
+        }, 500);
         cloneChatContact.id = res.data.id;
+        socketUtil.subscribe(
+          SOCKET_CONSTS.PREFIX_CHAT,
+          cloneChatContact.id,
+          onReceivedMessage
+        );
       } catch (error) {
         console.log(error);
       }
@@ -171,7 +177,7 @@ const ChatInputBar = ({ chatId, onSendMessage }) => {
         </div>
         <form className="flex flex-1 ml-3">
           <input
-            className="bg-info-content/30 flex-1 rounded-3xl p-3 pl-5"
+            className="bg-base-content/5 flex-1 rounded-3xl p-3 pl-5"
             type="text"
             placeholder="Type a message..."
             onChange={onChangeMessage}

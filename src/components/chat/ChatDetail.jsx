@@ -22,14 +22,16 @@ import {
   sendMessageAction as sendMessageAction,
 } from "../../redux/reducers/message_reducer";
 import { MESSAGE_CONSTS, SCROLL_MODE } from "../../constants/ui_consts";
+import ChatMenu from "./ChatMenu";
 
-const ChatDetail = ({ chat }) => {
+const ChatDetail = ({ chat, isOpenMenu, setIsOpenMenu }) => {
   const dispatch = useDispatch();
 
   const [isOtherSendingMessage, setIsOtherSendingMessage] = useState(false);
   const [scrollMode, setScrollMode] = useState(SCROLL_MODE.TO_LAST);
 
   const currentUserId = useSelector((state) => state.profile.data.id);
+  const messages = useSelector((state) => state.message.data.messages);
 
   const onSendMessage = (content) => {
     setScrollMode(SCROLL_MODE.TO_LAST);
@@ -66,6 +68,7 @@ const ChatDetail = ({ chat }) => {
     setScrollMode(SCROLL_MODE.TO_LAST);
 
     socketUtil.connect(() => {
+      if (!chat.id) return;
       socketUtil.subscribe(
         SOCKET_CONSTS.PREFIX_CHAT,
         chat.id,
@@ -74,20 +77,33 @@ const ChatDetail = ({ chat }) => {
     });
 
     return () => {
+      if (!chat.id) return;
       socketUtil.unsubscribe(SOCKET_CONSTS.PREFIX_CHAT, chat.id);
     };
   }, [chat.id]);
 
   return (
-    <div className="flex-1 flex flex-col ml-[3px]">
-      <ChatPartnerInfo chatPartner={chat?.chatPartner} />
-      <MessageList
-        chatId={chat.id}
-        isOtherSendingMessage={isOtherSendingMessage}
-        chatPartner={chat.chatPartner}
-        scrollMode={scrollMode}
-        setScrollMode={setScrollMode}
+    <div className="flex-2 flex flex-col ml-[3px]">
+      <ChatPartnerInfo
+        chatPartner={chat?.chatPartner}
+        setIsOpenMenu={setIsOpenMenu}
+        isOnline={chat.isOnline}
       />
+      {messages?.length <= 0 ? (
+        <div className="flex justify-center items-center flex-1">
+          <h1 className="text-base-content/50">
+            No messages have been sent here yet
+          </h1>
+        </div>
+      ) : (
+        <MessageList
+          chatId={chat.id}
+          isOtherSendingMessage={isOtherSendingMessage}
+          chatPartner={chat.chatPartner}
+          scrollMode={scrollMode}
+          setScrollMode={setScrollMode}
+        />
+      )}
       <ChatInputBar
         chatId={chat.id}
         onSendMessage={onSendMessage}

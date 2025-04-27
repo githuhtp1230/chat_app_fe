@@ -48,11 +48,14 @@ export const logout = createAsyncThunk(
 const authSlice = createSlice({
   name: "auth",
   initialState: {},
+  // peding, reject, fullfiled
   extraReducers: (builder) => {
     builder
       .addCase(login.fulfilled, (state, action) => {
-        const token = action.payload.data.accessToken;
-        cookieUtils.saveToken(token, SECURITY.KEY_ACCESS_TOKEN);
+        const accessToken = action.payload.data.accessToken;
+        const refreshToken = action.payload.data.refreshToken;
+        cookieUtils.saveToken(accessToken, SECURITY.KEY_ACCESS_TOKEN);
+        cookieUtils.saveToken(refreshToken, SECURITY.KEY_REFRESH_TOKEN);
       })
       .addCase(logout.fulfilled, (state, action) => {
         cookieUtils.removeStorage(SECURITY.KEY_ACCESS_TOKEN);

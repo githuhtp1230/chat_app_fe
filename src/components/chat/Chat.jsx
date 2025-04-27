@@ -4,7 +4,7 @@ import PATH from "../../constants/path";
 import RenderIf from "../RenderIf";
 import icons from "../../utils/icons";
 import { MESSAGE_CONSTS, UI_CONSTS } from "../../constants/ui_consts";
-const { AiFillLike } = icons;
+const { AiFillLike, GoDotFill } = icons;
 
 const Chat = ({ chat }) => {
   const isLike = chat?.lastMessage?.startsWith(MESSAGE_CONSTS.PREFIX_LIKE);
@@ -36,9 +36,14 @@ const Chat = ({ chat }) => {
             </div>
           </div>
         </div>
-        <p className="text-[13px] text-base-content/50">
-          {chat?.lastMessageTime}
-        </p>
+        <div className="flex gap-3">
+          <RenderIf condition={chat?.isOnline}>
+            <GoDotFill className="text-info" />
+          </RenderIf>
+          <p className="text-[13px] text-base-content/50">
+            {chat?.lastMessageTime}
+          </p>
+        </div>
       </div>
     </NavLink>
   );
