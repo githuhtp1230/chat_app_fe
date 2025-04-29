@@ -19,10 +19,6 @@ const MessageContent = ({
 }) => {
   const dispath = useDispatch();
 
-  const handleDelete = () => {
-    dispath();
-  };
-
   return (
     <>
       <div className={`flex w-full ${isMe ? "justify-end" : "justify-start"}`}>
@@ -50,7 +46,6 @@ const MessageContent = ({
           }
         >
           {message.content}
-          <IoCloseSharp onClick={handleDelete} />
         </div>
       </div>
       <RenderIf condition={isSending && isMe}>
