@@ -176,6 +176,7 @@ const MessageList = React.memo(
             const isNextMessageIsMine =
               currentUserId == messages[index + 1]?.sender.id;
             let isSending = false;
+            // nếu tin nhắn đang gửi
             if (sendingMessageIds.includes(messages[index].id)) {
               isSending = true;
             }

@@ -52,18 +52,22 @@ const messageSlice = createSlice({
       state.data.messages = [...state.data.messages, message];
     },
     onReceivedMessageAction: (state, action) => {
+      // cả 2 người vào onReceivedMessageAction
       const receivedMessage = action.payload.message;
       const currentUserId = action.payload.currentUserId;
       if (receivedMessage.sender.id != currentUserId) {
         state.data.messages = [...state.data.messages, receivedMessage];
         return;
       }
+      // cập nhật sending thành sent
       state.data.messages.forEach((message) => {
+        // kiểm tra message có đang sending hay không
         if (!state.data.sendingMessageIds.includes(message.id)) {
           return message;
         }
+        //
         state.data.sendingMessageIds = state.data.sendingMessageIds.filter(
-          (item) => item != message.id
+          (item) => item != message.id // thực hiện xóa tin nhắn khỏi sendingMessageIds -> cập nhật tin nhắn sending thành sent
         );
         message.id = receivedMessage.id;
       });

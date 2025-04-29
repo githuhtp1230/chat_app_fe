@@ -1,5 +1,6 @@
 export const UI_CONSTS = {
-  PATH_NO_AVATAR: "/src/assets/images/no_avatar.png",
+  PATH_NO_AVATAR:
+    "https://e7.pngegg.com/pngimages/799/987/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png",
 };
 
 export const MESSAGE_CONSTS = {

@@ -30,7 +30,7 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const delay = new Promise((resolve) => setTimeout(resolve, 300));
+    const delay = new Promise((resolve) => setTimeout(resolve, 1000));
     if (cookieUtils.getStorage(SECURITY.KEY_ACCESS_TOKEN)) {
       const fetchUser = dispatch(getMyInfo())
         .unwrap()
@@ -44,6 +44,7 @@ const App = () => {
       });
     }
   }, []);
+
   if (isLoading) {
     return (
       <div className="flex flex-col items-center justify-center h-screen bg-main text-white">

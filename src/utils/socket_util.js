@@ -14,7 +14,7 @@ class SocketUtil {
     }
 
     this.stompClient = Stomp.over(
-      () => new WebSocket(`ws://${import.meta.env.VITE_IP}/api/ws`)
+      () => new WebSocket(`wss://${import.meta.env.VITE_IP}/api/ws`)
     );
 
     this.stompClient.connect(
